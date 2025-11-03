@@ -1,0 +1,5 @@
+.env
+venv/
+bytedev.db
+__pycache__/
+*.pyc
