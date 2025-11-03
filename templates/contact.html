@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="contact-page">
+    <h2><i class="fas fa-envelope-open-text"></i> Entre em contato</h2>
+    <p>Use o formulário abaixo para enviar sua mensagem.</p>
+    
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.name.label }} {{ form.name() }}
+        {{ form.email.label }} {{ form.email() }}
+        {{ form.message.label }} {{ form.message(rows=6) }}
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+{% endblock %}

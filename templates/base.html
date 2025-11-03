@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}ByteDev - Blog de TI e Hacking Ético{% endblock %}</title>
+        <!-- ✅ Font Awesome SEM espaços e SEM integrity truncado -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+<body>
+    <header>
+        <div class="logo-section">
+            <h1><a href="/"><i class="fas fa-terminal"></i> ByteDev</a></h1>
+            <p class="tagline">Segurança • Código • Conhecimento</p>
+        </div>
+        <div class="header-controls">
+            <form method="GET" action="/search" class="search-form-header">
+                <input type="text" name="q" placeholder="Buscar...">
+                <button type="submit" aria-label="Buscar"><i class="fas fa-search"></i></button>
+            </form>
+            <nav class="nav-icons">
+                <a href="/" title="Início"><i class="fas fa-home"></i></a>
+                <a href="/contact" title="Contato"><i class="fas fa-envelope"></i></a>
+                {% if current_user.is_authenticated %}
+                    <a href="/admin" title="Admin"><i class="fas fa-lock"></i></a>
+                {% endif %}
+                <a href="https://github.com/seu-perfil" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com/seu-perfil" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert {{ 'error' if category == 'error' else 'success' }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ByteDev. Todos os direitos reservados.</p>
+        <p>
+            <i class="fas fa-envelope"></i> contato@bytedev.com |
+            <i class="fab fa-github"></i> @bytedev_oficial
+        </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

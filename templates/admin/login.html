@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-form">
+    <h2><i class="fas fa-user-shield"></i> Área Administrativa</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <label>Usuário</label>
+        {{ form.username(class="form-input") }}
+        <label>Senha (mín. 8 caracteres)</label>
+        {{ form.password(class="form-input") }}
+        <!-- ✅ reCAPTCHA -->
+        <div class="g-recaptcha" data-sitekey="{{ config['RECAPTCHA_SITE_KEY'] }}"></div>
+        <button type="submit"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+    </form>
+</div>
+<!-- ✅ Script do reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}

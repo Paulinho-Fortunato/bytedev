@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-form">
+    <h2><i class="fas fa-edit"></i> Criar Novo Artigo</h2>
+    <form method="POST">
+        <label for="title">Título</label>
+        <input type="text" name="title" id="title" required>
+
+        <label for="category">Categoria</label>
+        <select name="category" id="category" required>
+            {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Tags</label>
+        {% for tag in tags %}
+            <label class="checkbox-label">
+                <input type="checkbox" name="tags" value="{{ tag.id }}"> {{ tag.name }}
+            </label>
+        {% endfor %}
+
+        <label for="content">Conteúdo (HTML suportado)</label>
+        <textarea name="content" id="content" rows="15" placeholder="Use <p>, <pre><code>, <img src='...'>, etc." required></textarea>
+
+        <button type="submit"><i class="fas fa-save"></i> Publicar Artigo</button>
+    </form>
+</div>
+{% endblock %}

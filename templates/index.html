@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero">
+    <h2><i class="fas fa-code"></i> Bem-vindo ao ByteDev</h2>
+    <p>Blog dedicado a Tecnologia da Informação, Segurança Cibernética e Hacking Ético.</p>
+</div>
+
+<div class="categories-section">
+    <h3><i class="fas fa-tags"></i> Categorias</h3>
+    <div class="categories-grid">
+        {% for cat in categories %}
+        <a href="{{ url_for('category', cat_id=cat.id) }}" class="category-card">
+            <i class="fas fa-shield-alt"></i>
+            <span>{{ cat.name }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="articles">
+    <h2><i class="fas fa-newspaper"></i> Artigos Recentes</h2>
+    {% for article in articles.items %}
+    <article>
+        <h3><a href="{{ url_for('article', slug=article.slug) }}">{{ article.title }}</a></h3>
+        <div class="meta">
+            <i class="far fa-calendar"></i> {{ article.created_at.strftime('%d/%m/%Y') }} |
+            <i class="fas fa-folder"></i> {{ article.category.name }}
+        </div>
+        <p>{{ article.content[:200]|striptags }}...</p>
+    </article>
+    {% endfor %}
+</div>
+
+{% if articles.pages > 1 %}
+<div class="pagination">
+    {% if articles.has_prev %}
+        <a href="{{ url_for('index', page=articles.prev_num) }}">&laquo; Anterior</a>
+    {% endif %}
+    <span>Página {{ articles.page }} de {{ articles.pages }}</span>
+    {% if articles.has_next %}
+        <a href="{{ url_for('index', page=articles.next_num) }}">Próxima &raquo;</a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

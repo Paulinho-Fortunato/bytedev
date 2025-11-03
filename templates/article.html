@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="single-article">
+    <h1>{{ article.title }}</h1>
+    <div class="meta">
+        <i class="far fa-calendar"></i> {{ article.created_at.strftime('%d/%m/%Y') }} |
+        <i class="fas fa-folder"></i> <a href="{{ url_for('category', cat_id=article.category.id) }}">{{ article.category.name }}</a>
+        {% if article.tags %}
+            | <i class="fas fa-tag"></i> 
+            {% for tag in article.tags %}
+                {{ tag.name }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="content">
+        {{ article.content|safe }}
+    </div>
+</article>
+
+<h3><i class="far fa-comments"></i> Comentários ({{ article.comments|length }})</h3>
+<div class="comments">
+    {% for comment in article.comments %}
+    <div class="comment">
+        <strong>{{ comment.author }}</strong> – {{ comment.created_at.strftime('%d/%m/%Y %H:%M') }}
+        <p>{{ comment.content|safe }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<h3><i class="fas fa-plus-circle"></i> Deixe seu comentário</h3>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.author.label }} {{ form.author() }}
+    {{ form.email.label }} {{ form.email() }}
+    {{ form.content.label }} {{ form.content(rows=5) }}
+    <button type="submit"><i class="fas fa-paper-plane"></i> Enviar</button>
+</form>
+{% endblock %}

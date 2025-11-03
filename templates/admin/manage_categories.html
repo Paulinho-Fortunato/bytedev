@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-form">
+    <h2><i class="fas fa-tags"></i> Gerenciar Categorias</h2>
+    
+    <form method="POST">
+        <label for="name">Nova Categoria</label>
+        <input type="text" name="name" id="name" placeholder="Ex: Redes, Criptografia" required>
+        <button type="submit"><i class="fas fa-plus-circle"></i> Adicionar</button>
+    </form>
+
+    <h3>Categorias Existentes</h3>
+    <ul class="category-list">
+        {% for cat in categories %}
+        <li>{{ cat.name }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
